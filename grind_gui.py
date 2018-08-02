@@ -53,6 +53,8 @@ class Ui_MainWindow(QWidget):
         self.menubar.setObjectName("menubar")
         self.menuFile = QtWidgets.QMenu(self.menubar)
         self.menuFile.setObjectName("menuFile")
+        self.menuHelp = QtWidgets.QMenu(self.menubar)
+        self.menuHelp.setObjectName("menuHelp")
         MainWindow.setMenuBar(self.menubar)
         self.statusbar = QtWidgets.QStatusBar(MainWindow)
         self.statusbar.setObjectName("statusbar")
@@ -61,11 +63,20 @@ class Ui_MainWindow(QWidget):
         self.actionOpen.setObjectName("actionOpen")
         self.actionSave_as = QtWidgets.QAction(MainWindow)
         self.actionSave_as.setObjectName("actionSave_as")
+        self.actionAbout = QtWidgets.QAction(MainWindow)
+        self.actionAbout.setObjectName("actionAbout")
+        self.actionLicense = QtWidgets.QAction(MainWindow)
+        self.actionLicense.setObjectName("actionLicense")
         self.menuFile.addAction(self.actionOpen)
         self.menuFile.addAction(self.actionSave_as)
+        self.menuHelp.addAction(self.actionAbout)
+        self.menuHelp.addAction(self.actionLicense)
         self.menubar.addAction(self.menuFile.menuAction())
+        self.menubar.addAction(self.menuHelp.menuAction())
         self.actionOpen.triggered.connect(self.fileOpen)
         self.actionSave_as.triggered.connect(self.fileSave)
+        self.actionAbout.triggered.connect(self.helpAbout)
+        self.actionLicense.triggered.connect(self.helpLicense)
 
         self.retranslateUi(MainWindow)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
@@ -74,10 +85,13 @@ class Ui_MainWindow(QWidget):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "Grind"))
         self.label.setText(_translate("MainWindow", "Select Columns to preserve:"))
-        self.label_2.setText(_translate("MainWindow", "Output Format"))
+        self.label_2.setText(_translate("MainWindow", "Output Format:"))
         self.menuFile.setTitle(_translate("MainWindow", "File"))
+        self.menuHelp.setTitle(_translate("MainWindow", "Help"))
         self.actionOpen.setText(_translate("MainWindow", "Import..."))
         self.actionSave_as.setText(_translate("MainWindow", "Save as..."))
+        self.actionAbout.setText(_translate("MainWindow", "About..."))
+        self.actionLicense.setText(_translate("MainWindow", "License..."))
 
     def on_change(self):
         self.stable = []
@@ -133,6 +147,47 @@ class Ui_MainWindow(QWidget):
         fileName, _ = QFileDialog.getSaveFileName(self,"QFileDialog.getOpenFileName()", "","All Files (*)")
         # Write csv
         self.df.to_csv(fileName, index=False)
+
+    def helpAbout(self):
+        message = """
+This program converts exported table data from FlowJo to a format 
+suitable for use with SPICE (niaid.github.io/spice)
+Copyright (C) 2018 Georgios Amanakis (gamanakis@gmail.com)
+
+Export the Combination Gates from FlowJo in a ".csv" file
+with the following header format (see Book1.csv):
+    Subject | Marker-1 | Marker-2 | Marker-1/Marker-2 | neg
+
+Multiple markers should be delimited with "/".
+The column where none of the markers is expressed should be
+labeled "neg".
+
+To import this file select "File->Import...".
+In the program window, select in the left list the columns
+which should be preserved in the transformation. Usually
+these are the "Subjects" and any column to be used as
+overlay in SPICE.
+
+The transformation appears in the right table. Check it, 
+and save with "File->Save as...".
+"""
+        QMessageBox.about(self, "About", message)
+
+    def helpLicense(self):
+        message = """
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
+See the GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+"""
+        QMessageBox.about(self, "License", message)
 
 if __name__ == "__main__":
     import sys
