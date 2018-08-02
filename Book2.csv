@@ -1,0 +1,13 @@
+Subject,Virus,Marker-1,Marker-2,Value
+A,HBV,+,-,1.0
+B,HBV,+,-,2.0
+C,HBV,+,-,3.0
+A,HBV,-,+,5.0
+B,HBV,-,+,6.0
+C,HBV,-,+,7.0
+A,HBV,+,+,11.0
+B,HBV,+,+,12.0
+C,HBV,+,+,13.0
+A,HBV,-,-,0.1
+B,HBV,-,-,0.2
+C,HBV,-,-,0.3
