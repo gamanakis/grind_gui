@@ -140,7 +140,7 @@ class Ui_MainWindow(QWidget):
 
     def fileOpen(self):
         fileName, _ = QFileDialog.getOpenFileName(self,"QFileDialog.getOpenFileName()", "","All Files (*)")
-        MainWindow.setWindowTitle(" - ".join(["Grrrrind",fileName]))
+        MainWindow.setWindowTitle(" - ".join(["Grind",fileName]))
         self.asd = pd.read_csv(fileName, delimiter=',')
         self.listWidget.addItems(self.asd.columns)
 
