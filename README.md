@@ -11,7 +11,11 @@ The program was written in Python3 and requires the following:
 * Numpy library
 * PyQt5
 
-The above python libraries along with Python3 are installed by default on MacOSX.
+The above python libraries (except for PyQt5) along with Python3 are installed by default on MacOSX.
+Install PyQt5 with:
+```
+brew install pyqt5
+```
 
 ### Installing
 
