@@ -140,14 +140,17 @@ class Ui_MainWindow(QWidget):
 
     def fileOpen(self):
         fileName, _ = QFileDialog.getOpenFileName(self,"QFileDialog.getOpenFileName()", "","All Files (*)")
-        MainWindow.setWindowTitle(" - ".join(["Grind",fileName]))
-        self.asd = pd.read_csv(fileName, delimiter=',')
-        self.listWidget.addItems(self.asd.columns)
+        if fileName:
+            MainWindow.setWindowTitle(" - ".join(["Grind",fileName]))
+            self.asd = pd.read_csv(fileName, delimiter=',')
+            self.listWidget.clear()
+            self.listWidget.addItems(self.asd.columns)
 
     def fileSave(self):
         fileName, _ = QFileDialog.getSaveFileName(self,"QFileDialog.getOpenFileName()", "","All Files (*)")
         # Write csv
-        self.df.to_csv(fileName, index=False)
+        if fileName:
+            self.df.to_csv(fileName, index=False)
 
     def helpAbout(self):
         message = """
